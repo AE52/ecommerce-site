@@ -35,10 +35,11 @@ type FormData = z.infer<typeof formSchema>
 
 interface AuthDialogProps {
   children: React.ReactNode
+  defaultOpen?: boolean
 }
 
-export function AuthDialog({ children }: AuthDialogProps) {
-  const [open, setOpen] = useState(false)
+export function AuthDialog({ children, defaultOpen }: AuthDialogProps) {
+  const [open, setOpen] = useState(defaultOpen ?? false)
   const [isLoading, setIsLoading] = useState(false)
   const { signIn, signUp } = useAuth()
 

@@ -23,9 +23,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useSearchParams } from "next/navigation"
 
 export function Header() {
   const { user, signOut } = useAuth()
+  const searchParams = useSearchParams()
+  const loginOpen = searchParams.get("login") !== null
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -146,7 +149,7 @@ export function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <AuthDialog>
+              <AuthDialog defaultOpen={loginOpen}>
                 <Button variant="ghost">
                   <User className="mr-2 h-4 w-4" />
                   Sign In

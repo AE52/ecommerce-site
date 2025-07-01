@@ -16,8 +16,12 @@ export default function AdminLayout({
   const router = useRouter()
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push("/")
+    if (!loading) {
+      if (!user) {
+        router.push("/?login=1")
+      } else if (user.user_metadata?.role !== 'admin') {
+        router.push("/")
+      }
     }
   }, [user, loading, router])
 
@@ -25,7 +29,7 @@ export default function AdminLayout({
     return <div>Loading...</div>
   }
 
-  if (!user) {
+  if (!user || user.user_metadata?.role !== 'admin') {
     return null
   }
 
